@@ -1,0 +1,13 @@
+alert: DiskSpace
+  - Warning
+expr: (100
+  - (node_filesystem_free_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}
+  * 100)) < 80 > 60
+for: 5s
+labels:
+  description: |-
+    Warning - Disk usage is (> 60% )
+      VALUE = {{ $value }}
+      LABELS: {{ $labels }}
+  severity: warning
+  summary: Disk Usage (instance {{ $labels.instance }})
